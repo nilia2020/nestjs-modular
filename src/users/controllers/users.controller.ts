@@ -39,7 +39,7 @@ export class UsersController {
   @Put(':id')
   update(
     @Param('id', ParseIntPipe) id: number,
-    @Body() payload: UpdateUserDto
+    @Body() payload: UpdateUserDto,
   ) {
     return this.usersService.update(id, payload);
   }

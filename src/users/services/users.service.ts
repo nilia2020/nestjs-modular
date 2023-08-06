@@ -9,7 +9,7 @@ import { ProductsService } from 'src/products/services/products.service';
 export class UsersService {
   constructor(
     private productsService: ProductsService,
-    private configService: ConfigService
+    private configService: ConfigService,
   ) {}
 
   private counterId = 1;

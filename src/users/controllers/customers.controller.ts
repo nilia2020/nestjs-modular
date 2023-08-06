@@ -34,7 +34,7 @@ export class CustomerController {
   @Put(':id')
   update(
     @Param('id', ParseIntPipe) id: number,
-    @Body() payload: UpdateCustomerDto
+    @Body() payload: UpdateCustomerDto,
   ) {
     return this.customersService.update(id, payload);
   }

@@ -34,7 +34,7 @@ export class BrandsController {
   @Put(':id')
   update(
     @Param('id', ParseIntPipe) id: number,
-    @Body() payload: UpdateBrandDto
+    @Body() payload: UpdateBrandDto,
   ) {
     return this.brandsService.update(id, payload);
   }
