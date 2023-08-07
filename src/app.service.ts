@@ -5,9 +5,7 @@ import config from './config';
 @Injectable()
 export class AppService {
   constructor(
-    // @Inject('API_KEY') private apikey: string,
     @Inject('TASKS') private tasks: any[],
-    // private configService: ConfigService,
     @Inject(config.KEY) private configService: ConfigType<typeof config>,
   ) {}
   getHello(): string {
