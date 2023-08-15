@@ -1,4 +1,4 @@
-import { firstValueFrom } from 'rxjs';
+import { lastValueFrom } from 'rxjs';
 import { Module } from '@nestjs/common';
 import { HttpModule, HttpService } from '@nestjs/axios';
 import { ConfigModule } from '@nestjs/config';
@@ -41,7 +41,7 @@ import config from './config';
       provide: 'TASKS',
       useFactory: async (http: HttpService) => {
         const request = http.get('https://jsonplaceholder.typicode.com/todos');
-        const tasks = await firstValueFrom(request);
+        const tasks = await lastValueFrom(request);
         return tasks.data;
       },
       inject: [HttpService],

@@ -11,16 +11,19 @@ const API_KEY_PROD = 'PROD126548SA';
   imports: [
     TypeOrmModule.forRootAsync({
       useFactory: (configService: ConfigType<typeof config>) => {
+        // Para mysql "configService.mysql"
         const { user, host, dbName, password, port } = configService.postgres;
         return {
+          // Para mysql: type: 'mysql'
           type: 'postgres',
           host,
           port,
           username: user,
           password,
           database: dbName,
-          synchronize: true,
-          autoLoadEntities: true,
+          //En producción se utilizan migraciones para controlar los cambios
+          synchronize: process.env.NODE_ENV === 'prod' ? false : true,
+          autoLoadEntities: process.env.NODE_ENV === 'prod' ? false : true,
         };
       },
       inject: [config.KEY],
