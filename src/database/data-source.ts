@@ -8,7 +8,7 @@ export const dataSourceOptions: DataSourceOptions = {
   url: process.env.DATABASE_URL,
   logging: false,
   synchronize: false,
-  entities: ['dist/modules/**/*.entity{.ts,.js}'],
+  entities: ['src/**/*.entity.ts'],
   migrations: ['src/database/migrations/*.ts'],
   migrationsTableName: 'migrations',
 };
