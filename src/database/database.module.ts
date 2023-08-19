@@ -22,7 +22,7 @@ const API_KEY_PROD = 'PROD126548SA';
           password,
           database: dbName,
           //En producción se utilizan migraciones para controlar los cambios
-          synchronize: process.env.NODE_ENV === 'prod' ? false : true,
+          synchronize: false,
           autoLoadEntities: process.env.NODE_ENV === 'prod' ? false : true,
         };
       },
