@@ -9,6 +9,7 @@ import {
 
 import { Product } from './../../products/entities/product.entity';
 import { Order } from './order.entity';
+import { Exclude } from 'class-transformer';
 
 @Entity({ name: 'order_items' })
 export class OrderItem {
@@ -24,12 +25,14 @@ export class OrderItem {
   @ManyToOne(() => Order, (order) => order.items)
   order: Order;
 
+  @Exclude()
   @CreateDateColumn({
     type: 'timestamptz',
     default: () => 'CURRENT_TIMESTAMP',
     name: 'create_at',
   })
   createAt: Date;
+  @Exclude()
   @UpdateDateColumn({
     type: 'timestamptz',
     default: () => 'CURRENT_TIMESTAMP',

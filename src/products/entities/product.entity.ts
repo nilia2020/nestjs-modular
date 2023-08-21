@@ -13,6 +13,7 @@ import {
 
 import { Brand } from './brand.entity';
 import { Category } from './category.entity';
+import { Exclude } from 'class-transformer';
 
 @Entity({ name: 'products' })
 @Index(['price', 'stock'])
@@ -29,12 +30,14 @@ export class Product {
   stock: number;
   @Column({ type: 'varchar' })
   image: string;
+  @Exclude()
   @CreateDateColumn({
     type: 'timestamptz',
     default: () => 'CURRENT_TIMESTAMP',
     name: 'create_at',
   })
   createAt: Date;
+  @Exclude()
   @UpdateDateColumn({
     type: 'timestamptz',
     default: () => 'CURRENT_TIMESTAMP',
