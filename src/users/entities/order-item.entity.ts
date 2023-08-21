@@ -10,7 +10,7 @@ import {
 import { Product } from './../../products/entities/product.entity';
 import { Order } from './order.entity';
 
-@Entity({name: 'order_items'})
+@Entity({ name: 'order_items' })
 export class OrderItem {
   @PrimaryGeneratedColumn()
   id: number;
@@ -35,4 +35,5 @@ export class OrderItem {
     default: () => 'CURRENT_TIMESTAMP',
     name: 'update_at',
   })
+  updateAt: Date;
 }
