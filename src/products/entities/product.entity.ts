@@ -7,12 +7,15 @@ import {
   ManyToOne,
   ManyToMany,
   JoinTable,
+  Index,
+  JoinColumn,
 } from 'typeorm';
 
 import { Brand } from './brand.entity';
 import { Category } from './category.entity';
 
-@Entity()
+@Entity({ name: 'products' })
+@Index(['price', 'stock'])
 export class Product {
   @PrimaryGeneratedColumn()
   id: number;
@@ -26,13 +29,30 @@ export class Product {
   stock: number;
   @Column({ type: 'varchar' })
   image: string;
-  @CreateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
+  @CreateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+    name: 'create_at',
+  })
   createAt: Date;
-  @UpdateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
+  @UpdateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+    name: 'update_at',
+  })
   updateAt: Date;
   @ManyToOne(() => Brand, (brand) => brand.products)
+  @JoinColumn({ name: 'brand_id' })
   brand: Brand;
   @ManyToMany(() => Category, (category) => category.products)
-  @JoinTable()
+  @JoinTable({
+    name: 'products_categories',
+    joinColumn: {
+      name: 'product_id',
+    },
+    inverseJoinColumn: {
+      name: 'category_id',
+    },
+  })
   categories: Category[];
 }

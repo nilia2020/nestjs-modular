@@ -10,17 +10,22 @@ import {
 import { Customer } from './customer.entity';
 import { OrderItem } from './order-item.entity';
 
-@Entity()
+@Entity({ name: 'orders' })
 export class Order {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @CreateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
+  @CreateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+    name: 'create_at',
+  })
   createAt: Date;
-
-  @UpdateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
-  updateAt: Date;
-
+  @UpdateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+    name: 'update_at',
+  })
   @ManyToOne(() => Customer, (customer) => customer.orders)
   customer: Customer;
 

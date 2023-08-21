@@ -8,15 +8,23 @@ import {
 } from 'typeorm';
 
 import { Product } from './product.entity';
-@Entity()
+@Entity({ name: 'categories' })
 export class Category {
   @PrimaryGeneratedColumn()
   id: number;
   @Column({ type: 'varchar', length: 255, unique: true })
   name: string;
-  @CreateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
+  @CreateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+    name: 'create_at',
+  })
   createAt: Date;
-  @UpdateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
+  @UpdateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+    name: 'update_at',
+  })
   updateAt: Date;
   @ManyToMany(() => Product, (product) => product.categories)
   products: Product[];

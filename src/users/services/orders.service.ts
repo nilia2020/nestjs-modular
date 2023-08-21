@@ -14,13 +14,17 @@ export class OrdersService {
   ) {}
 
   findAll() {
-    return this.orderRepo.find();
+    return this.orderRepo.find({
+      relations: {
+        customer: true,
+      },
+    });
   }
 
   async findOne(id: number) {
     const order = await this.orderRepo.findOne({
       where: { id },
-      relations: ['items', 'items.product'],
+      relations: ['items', 'items.product', 'customer'],
     });
     if (!order) {
       throw new NotFoundException(`order ${id} not found`);

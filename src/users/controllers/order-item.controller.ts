@@ -13,8 +13,8 @@ import { CreateOrderItemDto, UpdateOrderItemDto } from '../dto/order-item.dto';
 import { ParseIntPipe } from 'src/common/parse-int.pipe';
 import { ApiTags } from '@nestjs/swagger';
 
-@ApiTags('order-item')
-@Controller('order-item')
+@ApiTags('order-items')
+@Controller('order-items')
 export class OrderItemController {
   constructor(private itemService: OrderItemService) {}
 
