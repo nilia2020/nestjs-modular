@@ -36,7 +36,7 @@ import config from './config';
       useFactory: async (http: HttpService) => {
         const request = http.get('https://jsonplaceholder.typicode.com/todos');
         const tasks = await lastValueFrom(request);
-        return tasks.data;
+        return tasks;
       },
       inject: [HttpService],
     },
