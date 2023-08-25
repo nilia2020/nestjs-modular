@@ -39,6 +39,6 @@ export class ProductsService {
   }
 
   remove(id: string) {
-    return this.productModel.findByIdAndDelete(id);
+    return this.productModel.findByIdAndDelete(id).exec();
   }
 }
