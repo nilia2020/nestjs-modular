@@ -1,4 +1,5 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, Inject } from '@nestjs/common';
+import { Db } from 'mongodb';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
@@ -12,6 +13,7 @@ import { ProductsService } from 'src/products/services/products.service';
 export class UsersService {
   constructor(
     @InjectModel(User.name) private userModel: Model<User>,
+    @Inject('MONGO') private databaseMongo: Db,
     private productsService: ProductsService,
   ) {}
 
@@ -19,16 +21,20 @@ export class UsersService {
     return this.userModel.find().exec();
   }
 
-  async findOne(id: string) {
-    const user = await this.userModel.findById(id);
+  async findOneById(id: string) {
+    const user = await this.userModel.findById(id).exec();
     if (!user) {
       throw new NotFoundException(`User #${id} not found`);
     }
     return user;
   }
 
-  findbyEmail(email: string) {
-    return this.userModel.findOne({ email });
+  async findByEmail(email: string) {
+    const user = await this.userModel.findOne({ email }).exec();
+    if (!user) {
+      throw new NotFoundException(`User email:${email} not found`);
+    }
+    return user;
   }
 
   async create(data: CreateUserDto): Promise<any> {
@@ -36,7 +42,9 @@ export class UsersService {
     const hashPassword = await bcrypt.hash(newUser.password, 10);
     newUser.password = hashPassword;
     const user = await newUser.save();
-    const { password, ...response } = user.toJSON();
+    const { password, ...response } = user;
+    if (password) {
+    }
     return response;
   }
 
@@ -53,7 +61,7 @@ export class UsersService {
   }
 
   async getOrderByUser(id: string) {
-    const user = this.userModel.findById(id);
+    const user = this.userModel.findById(id).exec();
     return {
       date: new Date(),
       user,

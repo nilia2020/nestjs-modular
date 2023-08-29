@@ -25,12 +25,17 @@ export class UsersController {
 
   @Get(':id')
   get(@Param('id', MongoIdPipe) id: string) {
-    return this.usersService.findOne(id);
+    return this.usersService.findOneById(id);
   }
 
   @Get(':id/orders')
   getOrders(@Param('id', MongoIdPipe) id: string) {
     return this.usersService.getOrderByUser(id);
+  }
+
+  @Get('email/:email')
+  getUserByEmail(@Param('email') email: string) {
+    return this.usersService.findByEmail(email);
   }
 
   @Post()
