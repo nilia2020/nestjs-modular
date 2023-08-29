@@ -29,7 +29,12 @@ export class UsersController {
 
   @Get(':id')
   get(@Param('id', ParseIntPipe) id: number) {
-    return this.usersService.findOne(id);
+    return this.usersService.findById(id);
+  }
+
+  @Get('email/:email')
+  getByEmail(@Param('email') email: string) {
+    return this.usersService.findByEmail(email);
   }
 
   @Get(':id/orders')
