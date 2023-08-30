@@ -9,11 +9,13 @@ import {
   Delete,
   HttpStatus,
   HttpCode,
+  UseGuards,
   // Res,
   // ParseIntPipe,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 // import { Response } from 'express';
+import { AuthGuard } from '@nestjs/passport';
 import { ParseIntPipe } from '../../common/parse-int.pipe';
 import {
   CreateProductDto,
@@ -21,7 +23,7 @@ import {
   UpdateProductDto,
 } from '../dtos/products.dto';
 import { ProductsService } from './../services/products.service';
-
+@UseGuards(AuthGuard('jwt'))
 @ApiTags('products')
 @Controller('products')
 export class ProductsController {
