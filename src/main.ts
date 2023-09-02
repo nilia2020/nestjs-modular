@@ -14,6 +14,7 @@ async function bootstrap() {
       },
     }),
   );
+  app.enableCors();
   const config = new DocumentBuilder()
     .setTitle('API')
     .setDescription('Platzi store API description')

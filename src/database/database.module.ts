@@ -29,10 +29,10 @@ async function run() {
     }), */
     MongooseModule.forRootAsync({
       useFactory: (configService: ConfigType<typeof config>) => {
-        const { connection, user, password, host, port, dbName } =
+        const { connection, user, password, host, dbName } =
           configService.mongo;
         return {
-          uri: `${connection}://${host}:${port}`,
+          uri: `${connection}://${host}`,
           user,
           pass: password,
           dbName,
@@ -49,9 +49,9 @@ async function run() {
     {
       provide: 'MONGO',
       useFactory: async (configService: ConfigType<typeof config>) => {
-        const { connection, user, password, host, port, dbName } =
+        const { connection, user, password, host, dbName } =
           configService.mongo;
-        const uri = `${connection}://${user}:${password}@${host}:${port}/`;
+        const uri = `${connection}://${user}:${password}@${host}/`;
         const client = new MongoClient(uri);
         const database = client.db(dbName);
         return database;
