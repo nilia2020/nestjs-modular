@@ -20,6 +20,9 @@ export class RolesGuard implements CanActivate {
       ROLES_KEY,
       context.getHandler(),
     );
+    if (!roles) {
+      return true;
+    }
     const request = context.switchToHttp().getRequest();
     const user = request.user as PayloadToken;
     const isAuth = roles.some((role) => role === user.role);

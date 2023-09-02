@@ -22,6 +22,15 @@ export class OrderService {
       .exec();
   }
 
+  async ordersByCustomer(customerId: string) {
+    return await this.orderModel
+      .find({
+        customer: customerId,
+      })
+      .populate('products')
+      .exec();
+  }
+
   async findOne(id: string) {
     const order = await this.orderModel
       .findById(id)
