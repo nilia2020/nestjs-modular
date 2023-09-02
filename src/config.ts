@@ -12,6 +12,7 @@ export default registerAs('config', () => {
       password: process.env.POSTGRES_PASSWORD,
       user: process.env.POSTGRES_USER,
       host: process.env.POSTGRES_HOST,
+      url: process.env.DATABASE_URL,
     },
     mysql: {
       dbName: process.env.MYSQL_DATABASE,

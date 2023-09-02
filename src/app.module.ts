@@ -29,6 +29,7 @@ import config from './config';
         POSTGRES_USER: Joi.string().required(),
         POSTGRES_HOST: Joi.string().required(),
         JWT_SECRET: Joi.string().required(),
+        DATABASE_URL: Joi.string().required(),
       }),
     }),
     UsersModule,
