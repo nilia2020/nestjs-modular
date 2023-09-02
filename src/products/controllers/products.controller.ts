@@ -22,13 +22,15 @@ import {
   FilterProductDto,
 } from '../dtos/products.dto';
 import { ProductsService } from './../services/products.service';
-import { AuthGuard } from '@nestjs/passport';
-@UseGuards(AuthGuard('jwt'))
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { Public } from 'src/auth/decorators/public.decorator';
+import { Roles } from 'src/auth/decorators/roles.decorator';
+@UseGuards(JwtAuthGuard)
 @ApiTags('products')
 @Controller('products')
 export class ProductsController {
   constructor(private productsService: ProductsService) {}
-
+  @Public()
   @Get()
   @ApiOperation({ summary: 'List of products' })
   getProducts(@Query() params: FilterProductDto) {
@@ -39,7 +41,7 @@ export class ProductsController {
   getProductFilter() {
     return `yo soy un filter`;
   }
-
+  @Public()
   @Get(':productId')
   @HttpCode(HttpStatus.ACCEPTED)
   getOne(@Param('productId', MongoIdPipe) productId: string) {
